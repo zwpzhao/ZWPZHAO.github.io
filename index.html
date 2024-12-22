@@ -3,12 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>点击图片跳转</title>
+    <title>选择页码显示图片</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .pagination {
+            margin: 20px 0;
+        }
+        .pagination button {
+            margin: 0 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .image-container img {
+            max-width: 45%;
+            margin: 5px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>点击下方图片播放视频</h1>
-    <a href="video.html">
-        <img src="QQ图片20241222201725.png" alt="点击播放视频" style="width:300px; cursor:pointer;">
-    </a>
+
+<h1>选择页码显示图片</h1>
+
+<div class="pagination">
+    <button onclick="showPage(1)">1</button>
+    <button onclick="showPage(2)">2</button>
+    <button onclick="showPage(3)">3</button>
+</div>
+
+<div class="image-container" id="imageBox">
+    <p>请选择页码以显示图片。</p>
+</div>
+
+<script>
+    // 自定义图片路径和对应的视频链接
+    const imageData = {
+        1: [
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "video.html" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+        ],
+        2: [
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+        ],
+        3: [
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+            { src: "img/e3ed9d302b8f5595f6ae6b2c5154a66.jpg", videoUrl: "mp4/130fba013fe60ca55934a88c24abc420.mp4" },
+        ]
+    };
+
+    function showPage(page) {
+        const imageBox = document.getElementById('imageBox');
+        imageBox.innerHTML = ""; // 清空之前的内容
+        imageData[page].forEach(image => {
+            const imgElem = document.createElement('img');
+            imgElem.src = image.src;
+            imgElem.alt = `图片 ${image.src}`;
+            imgElem.onclick = () => {
+                window.location.href = image.videoUrl;
+            };
+            imageBox.appendChild(imgElem);
+        });
+    }
+</script>
+
 </body>
 </html>
